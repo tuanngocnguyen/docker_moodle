@@ -4,23 +4,21 @@ services:
   moodle:
     build: ./docker/moodle
     ports:
-      - "127.0.0.1:80:80"
+      - "127.0.0.1:81:80"
     volumes:
       - ./siteroot:/siteroot
   db:
-    image: postgres:10.15
+    image: mcr.microsoft.com/mssql/server:2017-latest
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: moodle
-      POSTGRES_USER: moodle_user
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Mysecretpassw0rd
     volumes:
       - 'db:/var/lib/postgresql'
   test-db:
-    image: postgres:10.15
+    image: mcr.microsoft.com/mssql/server:2017-latest
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: moodle
-      POSTGRES_USER: moodle_user
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Mysecretpassw0rd
     volumes:
       - 'testdb:/var/lib/postgresql'
 volumes:
